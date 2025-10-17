@@ -1,344 +1,351 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulir Pendaftaran Biodata</title>
-    <style>
-        /* ================================================= */
-        /* == KODE CSS DIMULAI DI SINI (style.css)        == */
-        /* ================================================= */
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulir Pendaftaran Biodata</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f7f6;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
 
-        body {
-            font-family: sans-serif;
-            background-color: #f4f7f6;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 700px;
+    }
 
-        .container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 700px;
-        }
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
 
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-        }
+    fieldset {
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin-bottom: 25px;
+      border-radius: 5px;
+    }
 
-        fieldset {
-            border: 1px solid #ddd;
-            padding: 20px;
-            margin-bottom: 25px;
-            border-radius: 5px;
-        }
+    legend {
+      font-weight: bold;
+      color: #007bff;
+      padding: 0 10px;
+    }
 
-        legend {
-            font-weight: bold;
-            color: #007bff;
-            padding: 0 10px;
-        }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      margin-top: 15px;
+      font-weight: 500;
+      color: #555;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            margin-top: 15px;
-            font-weight: 500;
-            color: #555;
-        }
+    input[type="text"],
+    input[type="date"],
+    input[type="tel"],
+    input[type="email"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
 
-        input[type="text"],
-        input[type="date"],
-        input[type="tel"],
-        input[type="email"],
-        textarea,
-        select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
+    textarea { resize: vertical; }
 
-        textarea {
-            resize: vertical;
-        }
+    .row { display: flex; gap: 20px; margin-bottom: 15px; }
+    .col { flex: 1; }
 
-        /* Layout kolom */
-        .row {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 15px;
-        }
+    button {
+      background-color: #28a745;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+    }
 
-        .col {
-            flex: 1;
-        }
+    button:hover { background-color: #218838; }
 
-        /* Style tombol */
-        button {
-            background-color: #28a745;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 18px;
-            transition: background-color 0.3s ease;
-        }
+    .secondary-btn {
+      background-color: #007bff;
+    }
 
-        button:hover {
-            background-color: #218838;
-        }
+    .secondary-btn:hover {
+      background-color: #0056b3;
+    }
 
-        /* Checkbox */
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
+    .loading-bar {
+      display: none;
+      width: 100%;
+      background-color: #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      text-align: center;
+      padding: 5px 0;
+    }
 
-        .checkbox-group input[type="checkbox"] {
-            width: auto;
-            margin-right: 10px;
-        }
+    .loading-bar.active { display: block; }
 
-        .checkbox-group label {
-            margin: 0;
-            display: inline;
-        }
+    .progress {
+      height: 5px;
+      width: 0;
+      background-color: #007bff;
+      transition: width 0.3s ease;
+      animation: loading 2s infinite linear;
+    }
 
-        /* Preview Foto */
-        .photo-preview-box {
-            border: 1px solid #ddd;
-            padding: 10px;
-            height: 150px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 10px;
-            border-radius: 4px;
-            overflow: hidden;
-        }
+    @keyframes loading {
+      0% { width: 0%; }
+      50% { width: 100%; }
+      100% { width: 0%; }
+    }
 
-        #image-preview {
-            max-height: 100%;
-            width: auto;
-            object-fit: contain;
-        }
+    /* === Tabel Rekap === */
+    #rekapContainer {
+      display: none;
+      margin-top: 20px;
+    }
 
-        #no-photo-text {
-            color: #999;
-            margin: 0;
-        }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
 
-        /* Animasi Loading Progress Bar */
-        .loading-bar {
-            display: none; /* Sembunyikan secara default */
-            width: 100%;
-            background-color: #e0e0e0;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            text-align: center;
-            padding: 5px 0;
-        }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
 
-        .loading-bar.active {
-            display: block;
-        }
+    th {
+      background-color: #007bff;
+      color: white;
+    }
 
-        .loading-bar span {
-            display: block;
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 5px;
-        }
+    tr:nth-child(even) { background-color: #f9f9f9; }
 
-        .progress {
-            height: 5px;
-            width: 0;
-            background-color: #007bff;
-            transition: width 0.3s ease;
-            animation: loading 2s infinite linear; /* Animasi berulang */
-        }
+    .back-btn {
+      background-color: #6c757d;
+    }
 
-        /* Keyframes untuk simulasi loading */
-        @keyframes loading {
-            0% { width: 0%; }
-            50% { width: 100%; }
-            100% { width: 0%; }
-        }
-
-        /* ================================================= */
-        /* == KODE CSS BERAKHIR DI SINI                     == */
-        /* ================================================= */
-    </style>
+    .back-btn:hover {
+      background-color: #5a6268;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Formulir Pendaftaran</h1>
-        <form id="biodataForm">
-            <div id="loading-bar" class="loading-bar">
-                <div class="progress"></div>
-                <span>Mengirim data...</span>
-            </div>
+  <div class="container">
+    <h1>Formulir Pendaftaran</h1>
 
-            <fieldset>
-                <legend>Informasi Pribadi</legend>
+    <form id="biodataForm">
+      <div id="loading-bar" class="loading-bar">
+        <div class="progress"></div>
+        <span>Mengirim data...</span>
+      </div>
 
-                <label for="nama_lengkap">Nama Lengkap:</label>
-                <input type="text" id="nama_lengkap" name="nama_lengkap" required>
+      <fieldset>
+        <legend>Informasi Pribadi</legend>
+        <label>Nama Lengkap:</label>
+        <input type="text" name="nama_lengkap" required>
+        <label>Jenis Kelamin:</label>
+        <select name="jenis_kelamin" required>
+          <option value="">Pilih</option>
+          <option value="Laki-laki">Laki-laki</option>
+          <option value="Perempuan">Perempuan</option>
+        </select>
+        <div class="row">
+          <div class="col">
+            <label>Tempat Lahir:</label>
+            <input type="text" name="tempat_lahir" required>
+          </div>
+          <div class="col">
+            <label>Tanggal Lahir:</label>
+            <input type="date" name="tanggal_lahir" required>
+          </div>
+        </div>
+        <label>Alamat:</label>
+        <textarea name="alamat" rows="3" required></textarea>
+        <label>Nomor Telepon:</label>
+        <input type="tel" name="nomor_telepon" required>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Agama:</label>
+        <select name="agama" required>
+          <option value="">Pilih</option>
+          <option>Islam</option><option>Kristen</option><option>Katolik</option>
+          <option>Hindu</option><option>Buddha</option><option>Konghucu</option>
+        </select>
+        <label>Status Perkawinan:</label>
+        <select name="status_perkawinan" required>
+          <option value="">Pilih</option>
+          <option>Belum Menikah</option><option>Menikah</option><option>Cerai</option>
+        </select>
+        <label>Kewarganegaraan:</label>
+        <input type="text" name="kewarganegaraan" value="Indonesia" required>
+      </fieldset>
 
-                <label for="jenis_kelamin">Jenis Kelamin:</label>
-                <select id="jenis_kelamin" name="jenis_kelamin" required>
-                    <option value="">Pilih</option>
-                    <option value="Laki-laki">Laki-laki</option>
-                    <option value="Perempuan">Perempuan</option>
-                </select>
+      <fieldset>
+        <legend>Informasi Pendidikan & Karir</legend>
+        <label>Pendidikan Terakhir:</label>
+        <input type="text" name="pendidikan_terakhir" required>
+        <label>Keahlian:</label>
+        <textarea name="keahlian_skill" rows="2"></textarea>
+        <label>Pengalaman Kerja Sebelumnya:</label>
+        <textarea name="pengalaman_kerja" rows="4"></textarea>
+        <label>Biografi Singkat:</label>
+        <textarea name="biografi" rows="5"></textarea>
+      </fieldset>
 
-                <div class="row">
-                    <div class="col">
-                        <label for="tempat_lahir">Tempat Lahir:</label>
-                        <input type="text" id="tempat_lahir" name="tempat_lahir" required>
-                    </div>
-                    <div class="col">
-                        <label for="tanggal_lahir">Tanggal Lahir:</label>
-                        <input type="date" id="tanggal_lahir" name="tanggal_lahir" required>
-                    </div>
-                </div>
+      <fieldset>
+        <legend>Foto & Lainnya</legend>
+        <label>Unggah Foto:</label>
+        <input type="file" id="foto" name="foto" accept="image/*" onchange="encodeImageFileAsURL(this)">
+        <div class="checkbox-group">
+          <input type="checkbox" id="setuju" name="setuju" required>
+          <label for="setuju">Saya menyatakan bahwa semua data di atas benar dan valid.</label>
+        </div>
+      </fieldset>
 
-                <label for="alamat">Alamat:</label>
-                <textarea id="alamat" name="alamat" rows="3" required></textarea>
+      <button type="submit">Kirim Data</button>
+      <button type="button" class="secondary-btn" onclick="tampilkanRekap()">📋 Lihat Rekap</button>
+      <p id="response-message" style="text-align:center;font-weight:bold;"></p>
+    </form>
 
-                <label for="nomor_telepon">Nomor Telepon:</label>
-                <input type="tel" id="nomor_telepon" name="nomor_telepon" required>
-
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-
-                <label for="agama">Agama:</label>
-                <select id="agama" name="agama" required>
-                    <option value="">Pilih</option>
-                    <option value="Islam">Islam</option>
-                    <option value="Kristen">Kristen</option>
-                    <option value="Katolik">Katolik</option>
-                    <option value="Hindu">Hindu</option>
-                    <option value="Buddha">Buddha</option>
-                    <option value="Konghucu">Konghucu</option>
-                </select>
-
-                <label for="status_perkawinan">Status Perkawinan:</label>
-                <select id="status_perkawinan" name="status_perkawinan" required>
-                    <option value="">Pilih</option>
-                    <option value="Belum Menikah">Belum Menikah</option>
-                    <option value="Menikah">Menikah</option>
-                    <option value="Cerai">Cerai</option>
-                </select>
-
-                <label for="kewarganegaraan">Kewarganegaraan:</label>
-                <input type="text" id="kewarganegaraan" name="kewarganegaraan" value="Indonesia" required>
-            </fieldset>
-
-            <fieldset>
-                <legend>Informasi Pendidikan & Karir</legend>
-                
-                <label for="pendidikan_terakhir">Pendidikan Terakhir:</label>
-                <input type="text" id="pendidikan_terakhir" name="pendidikan_terakhir" required>
-
-                <label for="keahlian_skill">Keahlian:</label>
-                <textarea id="keahlian_skill" name="keahlian_skill" rows="2"></textarea>
-                
-                <label for="pengalaman_kerja">Pengalaman Kerja Sebelumnya:</label>
-                <textarea id="pengalaman_kerja" name="pengalaman_kerja" rows="4"></textarea>
-
-                <label for="biografi">Biografi Singkat:</label>
-                <textarea id="biografi" name="biografi" rows="5"></textarea>
-            </fieldset>
-
-            <fieldset>
-                <legend>Foto & Lainnya</legend>
-
-                <label for="foto">Unggah Foto:</label>
-              <input type="file" id="foto" name="foto" accept="image/*" onchange="encodeImageFileAsURL(this)">
-                
-               
-
-                <div class="checkbox-group">
-                    <input type="checkbox" id="setuju" name="setuju" value="Ya" required>
-                    <label for="setuju">Saya menyatakan bahwa semua data di atas adalah benar dan valid.</label>
-                </div>
-            </fieldset>
-
-            <button type="submit">Kirim Data</button>
-            <p id="response-message" style="margin-top: 15px; text-align: center; font-weight: bold;"></p>
-        </form>
+    <!-- === Bagian Rekap Data === -->
+    <div id="rekapContainer">
+      <h2 style="text-align:center;">📊 Rekap Data Pendaftaran</h2>
+      <button class="back-btn" onclick="kembaliKeForm()">⬅️ Kembali ke Formulir</button>
+      <table id="rekapTable">
+        <thead><tr id="headerRow"></tr></thead>
+        <tbody id="tableBody"></tbody>
+      </table>
     </div>
+  </div>
 
-    <script>
-function encodeImageFileAsURL(element) {
-  const file = element.files[0];
-  const reader = new FileReader();
-  reader.onloadend = function() {
-    document.getElementById('foto').setAttribute('data-base64', reader.result);
-  }
-  if (file) {
-    reader.readAsDataURL(file);
-  }
-}
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby5Z6pM01ax9AK7hCUPrq-MthJbih4tdIJQRU16Qxj57AeyEuY_yafa9uSasK3HVfM3/exec';
+  <script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby5Z6pM01ax9AK7hCUPrq-MthJbih4tdIJQRU16Qxj57AeyEuY_yafa9uSasK3HVfM3/exec';
+    const SHEET_URL = "https://opensheet.elk.sh/1Gowmdp0PHGV7pF9KOBHZhy1TadYfzISV3H5VZttFGl0/data"; // ganti ID & nama sheet
 
-const form = document.getElementById('biodataForm');
-const loadingBar = document.getElementById('loading-bar');
-const progressBar = document.querySelector('.progress');
-const responseMessage = document.getElementById('response-message');
-// Saat submit, tambahkan base64 ke data
-form.addEventListener('submit', function(e) {
-  e.preventDefault();
-  loadingBar.classList.add('active');
+    const form = document.getElementById('biodataForm');
+    const loadingBar = document.getElementById('loading-bar');
+    const progressBar = document.querySelector('.progress');
+    const responseMessage = document.getElementById('response-message');
 
-  const formData = new FormData(form);
-  const data = {};
-
-  formData.forEach((value, key) => {
-    if (key !== 'foto') {
-      data[key] = value;
+    function encodeImageFileAsURL(element) {
+      const file = element.files[0];
+      const reader = new FileReader();
+      reader.onloadend = function() {
+        document.getElementById('foto').setAttribute('data-base64', reader.result);
+      }
+      if (file) reader.readAsDataURL(file);
     }
-  });
 
-  const fotoBase64 = document.getElementById('foto').getAttribute('data-base64');
-  if (fotoBase64) data['foto'] = fotoBase64;
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      loadingBar.classList.add('active');
 
-  fetch(SCRIPT_URL, {
-    method: 'POST',
-    body: new URLSearchParams(data)
-  })
-  .then(() => {
-    progressBar.style.width = '100%';
-    loadingBar.classList.remove('active');
-    responseMessage.textContent = '✅ Data berhasil dikirim!';
-    responseMessage.style.color = '#28a745';
-    form.reset();
-  })
-  .catch(() => {
-    responseMessage.textContent = '❌ Gagal mengirim data.';
-    responseMessage.style.color = '#dc3545';
-  });
-});
-    </script>
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((value, key) => {
+        if (key !== 'foto') data[key] = value;
+      });
+      const fotoBase64 = document.getElementById('foto').getAttribute('data-base64');
+      if (fotoBase64) data['foto'] = fotoBase64;
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: new URLSearchParams(data)
+      })
+      .then(() => {
+        progressBar.style.width = '100%';
+        loadingBar.classList.remove('active');
+        responseMessage.textContent = '✅ Data berhasil dikirim!';
+        responseMessage.style.color = '#28a745';
+        form.reset();
+      })
+      .catch(() => {
+        responseMessage.textContent = '❌ Gagal mengirim data.';
+        responseMessage.style.color = '#dc3545';
+      });
+    });
+
+    // === Fungsi Rekap ===
+    async function tampilkanRekap() {
+      document.getElementById("biodataForm").style.display = "none";
+      const rekapContainer = document.getElementById("rekapContainer");
+      rekapContainer.style.display = "block";
+      await loadData();
+    }
+
+    function kembaliKeForm() {
+      document.getElementById("rekapContainer").style.display = "none";
+      document.getElementById("biodataForm").style.display = "block";
+    }
+
+    async function loadData() {
+      const tableBody = document.getElementById("tableBody");
+      const headerRow = document.getElementById("headerRow");
+      tableBody.innerHTML = "<tr><td>⏳ Memuat data...</td></tr>";
+
+      try {
+        const response = await fetch(SHEET_URL);
+        const data = await response.json();
+
+        if (!data.length) {
+          tableBody.innerHTML = "<tr><td>Belum ada data</td></tr>";
+          return;
+        }
+
+        headerRow.innerHTML = "";
+        Object.keys(data[0]).forEach(key => {
+          const th = document.createElement("th");
+          th.textContent = key.replace(/_/g, " ");
+          headerRow.appendChild(th);
+        });
+
+        tableBody.innerHTML = "";
+        data.forEach(row => {
+          const tr = document.createElement("tr");
+          Object.values(row).forEach(value => {
+            const td = document.createElement("td");
+            td.textContent = value;
+            tr.appendChild(td);
+          });
+          tableBody.appendChild(tr);
+        });
+
+      } catch (err) {
+        tableBody.innerHTML = "<tr><td>❌ Gagal memuat data</td></tr>";
+      }
+    }
+  </script>
 </body>
 </html>
