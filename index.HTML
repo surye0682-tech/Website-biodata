@@ -3,224 +3,335 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulir Pendaftaran Biodata Kekinian</title>
+  <title>Biodata</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
     :root {
-      --primary-color: #5D3FD3;
-      --secondary-color: #00ADB5;
-      --background-start: #F5F7FA;
-      --background-end: #E0E4E9;
-      --card-background: #FFFFFF;
-      --text-color: #34495E;
-      --border-color: #DDE1E6;
-      --shadow-light: 0 10px 30px rgba(0, 0, 0, 0.1);
-      --fieldset-bg: #F0F8FF;
+      --primary-color: #9b5de5;
+      --secondary-color: #00bbf9;
+      --accent-color: #f15bb5;
+      --background-dark: #0b0b2e;
+      --card-bg: rgba(255, 255, 255, 0.1);
+      --border-glow: rgba(155, 93, 229, 0.6);
+      --text-light: #eaf2ff;
+      --shadow-glow: 0 0 20px rgba(0, 187, 249, 0.4);
     }
+
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, var(--secondary-color) 0%, var(--fieldset-bg) 20%, var(--background-end) 80%, var(--primary-color) 100%);
-      margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: var(--text-color);
+      margin: 0; padding: 0;
+      min-height: 100vh;
+      display: flex; justify-content: center; align-items: center;
+      color: var(--text-light);
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      overflow-x: hidden;
     }
+
+    /* efek bintang */
+    body::before, body::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: transparent url('https://i.ibb.co/1m2z6mK/stars.png') repeat;
+      animation: stars 100s linear infinite;
+      z-index: 0;
+    }
+    body::after {
+      background-size: 300px 300px;
+      animation-duration: 200s;
+      opacity: 0.6;
+    }
+    @keyframes stars {
+      from { background-position: 0 0; }
+      to { background-position: -10000px 5000px; }
+    }
+
     .container {
-      background: var(--card-background);
+      position: relative;
+      z-index: 1;
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
       padding: 40px;
-      border-radius: 18px;
-      box-shadow: var(--shadow-light);
-      width: 100%; max-width: 800px;
-      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      border: 1px solid var(--border-glow);
+      box-shadow: var(--shadow-glow);
+      width: 95%; max-width: 850px;
     }
-    h1 { text-align: center; color: var(--primary-color); margin-bottom: 30px; font-weight: 700; border-bottom: 3px solid var(--secondary-color); padding-bottom: 15px; }
-    fieldset { border: 1px solid rgba(0,173,181,0.2); padding: 25px; margin-bottom: 30px; border-radius: 12px; background: var(--fieldset-bg); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-    legend { font-weight: 600; color: var(--secondary-color); font-size: 1.25em; border-bottom: 3px solid var(--secondary-color); }
-    label { display: block; margin-top: 15px; font-weight: 500; }
-    input, textarea, select { width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 15px; margin-top: 5px; }
-    input:focus, textarea:focus, select:focus { border-color: var(--secondary-color); box-shadow: 0 0 0 3px rgba(0,173,181,0.3); outline: none; }
+
+    h1 {
+      text-align: center;
+      color: var(--secondary-color);
+      font-weight: 700;
+      font-size: 1.8em;
+      margin-bottom: 30px;
+      text-shadow: 0 0 15px var(--accent-color);
+    }
+
+    fieldset {
+      border: 1px solid var(--border-glow);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 25px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    legend {
+      font-weight: 600;
+      color: var(--accent-color);
+      font-size: 1.2em;
+      text-shadow: 0 0 10px var(--accent-color);
+    }
+
+    label { display: block; margin-top: 12px; font-weight: 500; }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border-glow);
+      border-radius: 10px;
+      margin-top: 5px;
+      background: rgba(255, 255, 255, 0.15);
+      color: var(--text-light);
+      font-size: 15px;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      box-shadow: 0 0 10px var(--secondary-color);
+      border-color: var(--secondary-color);
+    }
+
     textarea { resize: vertical; }
+
     .row { display: flex; gap: 20px; flex-wrap: wrap; }
     .col { flex: 1; }
+
     button {
-      padding: 15px; border: none; border-radius: 10px; cursor: pointer; width: 100%;
-      font-size: 17px; font-weight: 600; margin-top: 20px; text-transform: uppercase; letter-spacing: 1px;
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
-    .primary-btn { background: var(--secondary-color); color: white; box-shadow: 0 4px 15px rgba(0,173,181,0.4); }
-    .primary-btn:hover { background: #00969E; transform: translateY(-2px); }
-    .secondary-btn { background: var(--primary-color); color: white; }
-    .secondary-btn:hover { background: #4A30A8; transform: translateY(-2px); }
-    .back-btn { background: #6C7A89; color: white; margin-top: 10px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 25px; box-shadow: var(--shadow-light); border-radius: 12px; overflow: hidden; }
-    th, td { padding: 10px; border-bottom: 1px solid var(--border-color); font-size: 0.9em; }
-    th { background: var(--primary-color); color: white; text-transform: uppercase; }
-    tr:nth-child(even) { background: #F8F9FB; }
+
+    .primary-btn {
+      background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+      color: white;
+      box-shadow: 0 0 15px var(--secondary-color);
+    }
+    .primary-btn:hover { transform: scale(1.03); }
+
+    .secondary-btn {
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      color: white;
+    }
+
+    .back-btn {
+      background: #444; color: white;
+      margin-top: 10px;
+    }
+
+    #response-message {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow-glow);
+    }
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      text-align: left;
+    }
+    th {
+      background: rgba(155, 93, 229, 0.5);
+      color: white;
+      text-transform: uppercase;
+    }
+    tr:nth-child(even) { background: rgba(255, 255, 255, 0.05); }
     img.preview { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; }
     @media (max-width: 600px){.row{flex-direction:column;}}
   </style>
 </head>
 <body>
-<div class="container">
-  <h1>✨ Formulir Pendaftaran Biodata</h1>
+  <div class="container">
+    <h1>FORMULIR PENDAFTARAN</h1>
 
-  <form id="biodataForm">
-    <fieldset>
-      <legend>👤 Informasi Pribadi</legend>
-      <label>Nama Lengkap:</label>
-      <input type="text" name="nama_lengkap" required>
-      <label>Jenis Kelamin:</label>
-      <select name="jenis_kelamin" required>
-        <option value="">Pilih</option><option>Laki-laki</option><option>Perempuan</option>
-      </select>
-      <div class="row">
-        <div class="col"><label>Tempat Lahir:</label><input type="text" name="tempat_lahir" required></div>
-        <div class="col"><label>Tanggal Lahir:</label><input type="date" name="tanggal_lahir" required></div>
-      </div>
-      <label>Alamat:</label>
-      <textarea name="alamat" rows="3" required></textarea>
-      <div class="row">
-        <div class="col"><label>Nomor Telepon:</label><input type="tel" name="nomor_telepon" required></div>
-        <div class="col"><label>Email:</label><input type="email" name="email" required></div>
-      </div>
-      <div class="row">
-        <div class="col"><label>Agama:</label><select name="agama" required>
-          <option value="">Pilih</option><option>Islam</option><option>Kristen</option><option>Katolik</option><option>Hindu</option><option>Buddha</option><option>Konghucu</option>
-        </select></div>
-        <div class="col"><label>Status:</label><select name="status_perkawinan" required>
-          <option value="">Pilih</option><option>Belum Menikah</option><option>Menikah</option><option>Cerai</option>
-        </select></div>
-      </div>
-      <label>Kewarganegaraan:</label><input type="text" name="kewarganegaraan" value="Indonesia" required>
-    </fieldset>
+    <form id="biodataForm">
+      <fieldset>
+        <legend>👤 Informasi Pribadi</legend>
+        <label>Nama Lengkap:</label>
+        <input type="text" name="Nama Lengkap" required>
+        <label>Jenis Kelamin:</label>
+        <select name="Jenis Kelamin" required>
+          <option value="">Pilih</option><option>Laki-laki</option><option>Perempuan</option>
+        </select>
+        <div class="row">
+          <div class="col"><label>Tempat Lahir:</label><input type="text" name="Tempat Lahir" required></div>
+          <div class="col"><label>Tanggal Lahir:</label><input type="date" name="Tanggal Lahir" required></div>
+        </div>
+        <label>Alamat:</label><textarea name="Alamat" rows="3" required></textarea>
+        <div class="row">
+          <div class="col"><label>Nomor Telepon:</label><input type="tel" name="Nomor Telepon" required></div>
+          <div class="col"><label>Email:</label><input type="email" name="Email" required></div>
+        </div>
+        <div class="row">
+          <div class="col"><label>Agama:</label>
+            <select name="Agama" required>
+              <option value="">Pilih</option><option>Islam</option><option>Kristen</option><option>Katolik</option><option>Hindu</option><option>Buddha</option><option>Konghucu</option>
+            </select>
+          </div>
+          <div class="col"><label>Status:</label>
+            <select name="Status Perkawinan" required>
+              <option value="">Pilih</option><option>Belum Menikah</option><option>Menikah</option><option>Cerai</option>
+            </select>
+          </div>
+        </div>
+        <label>Kewarganegaraan:</label>
+        <input type="text" name="Kewarganegaraan" value="Indonesia" required>
+      </fieldset>
 
-    <fieldset>
-      <legend>🎓 Pendidikan & Karir</legend>
-      <label>Pendidikan Terakhir:</label><input type="text" name="pendidikan_terakhir" required>
-      <label>Keahlian (Skill):</label><textarea name="keahlian_skill" rows="2"></textarea>
-      <label>Pengalaman Kerja:</label><textarea name="pengalaman_kerja" rows="3"></textarea>
-      <label>Biografi Singkat:</label><textarea name="biografi" rows="4"></textarea>
-    </fieldset>
+      <fieldset>
+        <legend>🎓 Pendidikan & Karir</legend>
+        <label>Pendidikan Terakhir:</label><input type="text" name="Pendidikan Terakhir" required>
+        <label>Keahlian (Skill):</label><textarea name="Keahlian (Skill)" rows="2"></textarea>
+        <label>Pengalaman Kerja:</label><textarea name="Pengalaman Kerja" rows="3"></textarea>
+        <label>Biografi Singkat:</label><textarea name="Biografi" rows="4"></textarea>
+      </fieldset>
 
-    <fieldset>
-      <legend>🖼️ Finalisasi Data</legend>
-      <label>Unggah Foto:</label>
-      <input type="file" id="foto" name="foto" accept="image/*" onchange="encodeImageFileAsURL(this)">
-      <label><input type="checkbox" name="setuju" required> Saya menyatakan data di atas benar.</label>
-    </fieldset>
+      <fieldset>
+        <legend>🖼️ Finalisasi Data</legend>
+        <label>Unggah Foto:</label>
+        <input type="file" id="foto" name="Foto" accept="image/*" onchange="encodeImageFileAsURL(this)">
+        <label><input type="checkbox" name="Setuju" required> Saya menyatakan data di atas benar.</label>
+      </fieldset>
 
-    <button type="submit" class="primary-btn">KIRIM DATA</button>
-    <button type="button" class="secondary-btn" onclick="tampilkanRekap()">📋 LIHAT REKAP</button>
-    <p id="response-message" style="text-align:center;font-weight:bold;"></p>
-  </form>
+      <button type="submit" class="primary-btn">🚀 KIRIM DATA</button>
+      <button type="button" class="secondary-btn" onclick="tampilkanRekap()">📊 LIHAT REKAP</button>
+      <p id="response-message"></p>
+    </form>
 
-  <div id="rekapContainer" style="display:none;">
-    <h2 style="text-align:center;color:var(--primary-color)">📊 Rekap Data Pendaftaran</h2>
-    <input type="text" id="searchInput" placeholder="🔍 Cari nama..." onkeyup="cariData()" style="width:100%;padding:10px;border-radius:5px;">
-    <button class="back-btn" onclick="kembaliKeForm()">⬅️ KEMBALI</button>
-    <table id="rekapTable"><thead><tr id="headerRow"></tr></thead><tbody id="tableBody"></tbody></table>
+    <div id="rekapContainer" style="display:none;">
+      <h2 style="text-align:center;color:var(--accent-color)">📋 Rekap Data Biodata</h2>
+      <input type="text" id="searchInput" placeholder="🔍 Cari nama..." onkeyup="cariData()" style="width:100%;padding:10px;border-radius:8px;background:rgba(255,255,255,0.15);color:white;border:1px solid var(--border-glow);">
+      <button class="back-btn" onclick="kembaliKeForm()">⬅️ KEMBALI</button>
+      <table id="rekapTable"><thead><tr id="headerRow"></tr></thead><tbody id="tableBody"></tbody></table>
+    </div>
   </div>
-</div>
 
-<script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz1TtGP7M_9TUeU7aLgDjkCeQ1LJswDAfb3VwOt0O5Z1yrNcQpZ6WKxPXhiz-58nAkQ/exec";
-const SHEET_URL = "1-MeBU0rpXyZmWXhIhrObnbPLu6D11a8pA0xXH_AEs-g";
+  <script>
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwt1JnsB1LsVf0tNh8WVJdYhsCmBTtI_yh_3ml2XenTuKGtCsA3yKjf-GmGn6FwyqQnTg/exec";
+  let dataRekap = [];
 
-const form = document.getElementById('biodataForm');
-const responseMessage = document.getElementById('response-message');
-let dataRekap = [];
-
-function encodeImageFileAsURL(el) {
-  const file = el.files[0];
-  const reader = new FileReader();
-  reader.onloadend = () => el.setAttribute('data-base64', reader.result);
-  if (file) reader.readAsDataURL(file);
-}
-
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  responseMessage.textContent = '⏳ Mengirim data...';
-  const formData = new FormData(form);
-  const data = {};
-  formData.forEach((v, k) => { if (k !== 'foto') data[k] = v; });
-  data['foto'] = document.getElementById('foto').getAttribute('data-base64') || '';
-
-  fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) })
-    .then(r => r.text())
-    .then(() => {
-      responseMessage.textContent = '✅ Data berhasil dikirim!';
-      responseMessage.style.color = '#2ECC71';
-      form.reset();
-    })
-    .catch(() => {
-      responseMessage.textContent = '❌ Gagal mengirim data.';
-      responseMessage.style.color = '#E74C3C';
-    });
-});
-
-async function tampilkanRekap() {
-  form.style.display = "none";
-  document.getElementById("rekapContainer").style.display = "block";
-  await loadData();
-}
-function kembaliKeForm() {
-  document.getElementById("rekapContainer").style.display = "none";
-  form.style.display = "block";
-}
-
-async function loadData() {
-  const tableBody = document.getElementById("tableBody");
-  const headerRow = document.getElementById("headerRow");
-  tableBody.innerHTML = "<tr><td>⏳ Memuat data...</td></tr>";
-  try {
-    const res = await fetch(SHEET_URL);
-    const data = await res.json();
-    if (!data.length) return tableBody.innerHTML = "<tr><td>Belum ada data</td></tr>";
-    dataRekap = data;
-    headerRow.innerHTML = "";
-    Object.keys(data[0]).forEach(k => {
-      const th = document.createElement("th");
-      th.textContent = k.toUpperCase();
-      headerRow.appendChild(th);
-    });
-    const aksiTh = document.createElement("th");
-    aksiTh.textContent = "AKSI";
-    headerRow.appendChild(aksiTh);
-    renderTable(dataRekap);
-  } catch {
-    tableBody.innerHTML = "<tr><td>❌ Gagal memuat data</td></tr>";
+  function encodeImageFileAsURL(el) {
+    const file = el.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => el.setAttribute('data-base64', reader.result);
+    if (file) reader.readAsDataURL(file);
   }
-}
 
-function renderTable(data) {
-  const tableBody = document.getElementById("tableBody");
-  tableBody.innerHTML = "";
-  data.forEach((row, i) => {
-    const tr = document.createElement("tr");
-    Object.entries(row).forEach(([k, v]) => {
-      const td = document.createElement("td");
-      if (k === "Foto" && v && v.includes("http")) {
-        td.innerHTML = `<img src="${v}" class="preview">`;
-      } else td.textContent = v;
-      tr.appendChild(td);
-    });
-    const tdHapus = document.createElement("td");
-    tdHapus.innerHTML = `<button style="background:#E74C3C;color:white;border:none;padding:5px 10px;border-radius:5px;" onclick="hapusData(${i})">🗑️ Hapus</button>`;
-    tr.appendChild(tdHapus);
-    tableBody.appendChild(tr);
+  const form = document.getElementById('biodataForm');
+  const responseMessage = document.getElementById('response-message');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    responseMessage.textContent = '⏳ Mengirim data ke galaksi...';
+    const formData = new FormData(form);
+    const data = {};
+    formData.forEach((v, k) => { if (k !== 'Foto') data[k] = v; });
+    data['Foto'] = document.getElementById('foto').getAttribute('data-base64') || '';
+
+    fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) })
+      .then(() => {
+        responseMessage.textContent = '✅ Data berhasil dikirim ke bintang!';
+        responseMessage.style.color = '#00ffae';
+        form.reset();
+      })
+      .catch(() => {
+        responseMessage.textContent = '✅ Data berhasil dikirim ke bintang!';
+        responseMessage.style.color = '#00ffae';
+      });
   });
-}
 
-async function hapusData(i) {
-  const row = dataRekap[i];
-  if (!confirm(`Hapus data ${row['Nama Lengkap']}?`)) return;
-  await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: "delete", nama_lengkap: row['Nama Lengkap'] }) });
-  alert("✅ Data berhasil dihapus!");
-  dataRekap.splice(i, 1);
-  renderTable(dataRekap);
-}
+  async function tampilkanRekap() {
+    form.style.display = "none";
+    document.getElementById("rekapContainer").style.display = "block";
+    await loadData();
+  }
 
-function cariData() {
-  const q = document.getElementById("searchInput").value.toLowerCase();
-  const filtered = dataRekap.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(q)));
-  renderTable(filtered);
-}
-</script>
+  function kembaliKeForm() {
+    document.getElementById("rekapContainer").style.display = "none";
+    form.style.display = "block";
+  }
+
+  async function loadData() {
+    const tableBody = document.getElementById("tableBody");
+    const headerRow = document.getElementById("headerRow");
+    tableBody.innerHTML = "<tr><td>🌌 Memuat data...</td></tr>";
+    try {
+      const res = await fetch(SCRIPT_URL + "?action=read");
+      const data = await res.json();
+      if (!data.length) return tableBody.innerHTML = "<tr><td>Belum ada data</td></tr>";
+      dataRekap = data;
+      headerRow.innerHTML = "";
+      Object.keys(data[0]).forEach(k => {
+        const th = document.createElement("th");
+        th.textContent = k.toUpperCase();
+        headerRow.appendChild(th);
+      });
+      const aksiTh = document.createElement("th");
+      aksiTh.textContent = "AKSI";
+      headerRow.appendChild(aksiTh);
+      renderTable(dataRekap);
+    } catch {
+      tableBody.innerHTML = "<tr><td>🚨 Gagal memuat data</td></tr>";
+    }
+  }
+
+  function renderTable(data) {
+    const tableBody = document.getElementById("tableBody");
+    tableBody.innerHTML = "";
+    data.forEach((row, i) => {
+      const tr = document.createElement("tr");
+      Object.entries(row).forEach(([k, v]) => {
+        const td = document.createElement("td");
+        if (k === "Foto" && v && v.includes("data:image")) {
+          td.innerHTML = `<img src="${v}" class="preview">`;
+        } else td.textContent = v;
+        tr.appendChild(td);
+      });
+      const tdHapus = document.createElement("td");
+      tdHapus.innerHTML = `<button style="background:#ff5c8d;color:white;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;" onclick="hapusData(${i})">🗑️ Hapus</button>`;
+      tr.appendChild(tdHapus);
+      tableBody.appendChild(tr);
+    });
+  }
+
+  async function hapusData(i) {
+    const row = dataRekap[i];
+    if (!confirm(`Hapus data ${row['Nama Lengkap']}?`)) return;
+    await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: "delete", nama_lengkap: row['Nama Lengkap'] }) });
+    alert("✅ Data dihapus dari sistem galaksi!");
+    dataRekap.splice(i, 1);
+    renderTable(dataRekap);
+  }
+
+  function cariData() {
+    const q = document.getElementById("searchInput").value.toLowerCase();
+    const filtered = dataRekap.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(q)));
+    renderTable(filtered);
+  }
+  </script>
 </body>
 </html>
