@@ -1,4 +1,4 @@
-     <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
@@ -165,31 +165,46 @@
       color: var(--accent-color);
     }
 
-    /* TABLE STYLING */
+    /* 👇 PERBAIKAN CSS UNTUK RESPONSIVITAS TABEL */
+    .table-responsive {
+      overflow-x: auto; /* Memungkinkan horizontal scroll jika isi tabel melebihi lebar kontainer */
+      margin-top: 25px;
+      border-radius: 15px;
+      box-shadow: var(--general-shadow);
+    }
+    
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 25px;
-      border-radius: 15px;
+      /* min-width yang lebih besar dari lebar mobile agar scroll aktif */
+      min-width: 700px; 
       overflow: hidden;
-      box-shadow: var(--general-shadow);
+      box-shadow: none; /* Shadow dipindah ke .table-responsive */
     }
 
     th, td {
       padding: 12px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.1); 
       text-align: left;
+      color: var(--text-dark);
+      background-color: var(--primary-color); 
+      /* Penting untuk memastikan kolom tidak terlalu menyempit */
+      min-width: 120px; 
+      white-space: nowrap; /* Mencegah teks terpotong baris */
     }
 
     th {
+      /* Header Table Muted Bronze */
       background: linear-gradient(90deg, #b7926e, var(--accent-color));
       color: var(--background-light); 
       text-transform: uppercase;
       font-weight: 700;
     }
 
-    tr:nth-child(even) { background: #f0f0e0; } 
-    tr:hover { background: #e0d0c0; } 
+    tr:nth-child(even) { background: #f0f0e0; } /* Baris Krem/Kuning langsat */
+    tr:hover { background: #e0d0c0; } /* Hover Coklat Muda */
+    /* 👆 AKHIR PERBAIKAN CSS RESPONSIVITAS TABEL */
+
 
     img.preview {
       width: 60px;
@@ -339,12 +354,14 @@
              style="width:100%;padding:10px;border-radius:8px;background:var(--input-bg);color:var(--text-dark);border:1px solid #ccc;">
 
       <button class="back-btn" onclick="kembaliKeForm()">⬅️ KEMBALI</button>
-
-      <table id="rekapTable">
-        <thead><tr id="headerRow"></tr></thead>
-        <tbody id="tableBody"></tbody>
-      </table>
-    </div>
+      
+      <div class="table-responsive">
+        <table id="rekapTable">
+          <thead><tr id="headerRow"></tr></thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+      </div>
 
   </div>
 
@@ -452,22 +469,27 @@
     function renderTable(data) {
       const tableBody = document.getElementById("tableBody");
       tableBody.innerHTML = "";
-
-      const headers = Array.from(document.getElementById("headerRow").children).map(th => th.textContent.toLowerCase().replace(/ /g, '_'));
+      
+      const headers = Array.from(document.getElementById("headerRow").children).map(th => th.textContent);
 
       data.forEach((row, i) => {
         const tr = document.createElement("tr");
 
         // Pastikan urutan data sesuai dengan urutan header
-        Object.keys(row).forEach((k) => {
-          const td = document.createElement("td");
+        headers.forEach((headerText) => {
+          // Cari key yang sesuai (case-insensitive)
+          const k = Object.keys(row).find(key => key.toUpperCase() === headerText);
           const v = row[k];
+          
+          const td = document.createElement("td");
 
-          if (k.toLowerCase() === "foto" && v && v.startsWith('http')) {
+          if (k && k.toLowerCase() === "foto" && v && v.startsWith('http')) {
             // Asumsi Apps Script mengembalikan URL publik foto
             td.innerHTML = `<img src="${v}" class="preview">`;
-          } else {
+          } else if (v) {
             td.textContent = v;
+          } else {
+            td.textContent = ''; // Handle nilai null/undefined
           }
 
           tr.appendChild(td);
